@@ -1,5 +1,6 @@
 <template>
   <div>
+    <vue-snotify></vue-snotify>
     <Navbar />
     <RulesList />
   </div>

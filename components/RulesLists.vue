@@ -1,22 +1,26 @@
 <template>
   <b-container>
     <div class="text-right my-2">
-      <b-button @click="handleShowModal">New rule</b-button>
+      <b-button variant="success" @click="handleShowModal">New rule +</b-button>
     </div>
     <RuleModal
       :open="showModal"
       :newRule="true"
       @closeModal="handleShowModal"
     />
-    <b-form-checkbox switch class="mr-n2">
-      <span class="sr-only">Switch for following text input</span>
-    </b-form-checkbox>
-    <b-row sm="12">
-      <b-col v-for="item in rules" :key="item.id">
+
+    <b-row>
+      <b-col
+        class="px-0 py-2"
+        v-for="item in rules"
+        :key="item.id"
+        cols="12"
+        md="6"
+      >
         <Rules :rule="item" />
       </b-col>
     </b-row>
-    <div class="overflow-auto">
+    <div class="overflow-auto my-2">
       <b-pagination
         v-model="pagination.current_page"
         :total-rows="pagination.total"
@@ -25,6 +29,14 @@
         aria-controls="my-table"
         align="center"
       ></b-pagination>
+      <b-form-checkbox
+        v-model="onlyActives"
+        switch
+        class=""
+        @change="handleSwitch"
+      >
+        <span>{{ "Only actives" }}</span>
+      </b-form-checkbox>
     </div>
   </b-container>
 </template>
@@ -35,6 +47,7 @@ export default {
   components: { Rules },
   data() {
     return {
+      onlyActives: false,
       perPage: 3,
       currentPage: 1,
       showModal: false,
@@ -56,6 +69,9 @@ export default {
     },
     handleShowModal() {
       this.showModal = !this.showModal;
+    },
+    handleSwitch() {
+      console.log("valor", this.onlyActives);
     },
   },
 };

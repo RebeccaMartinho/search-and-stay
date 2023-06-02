@@ -90,20 +90,28 @@ export default {
     async handleSubmit() {
       try {
         const response = null;
+
         if (!this.newRule) {
-          response = await this.$store.dispatch("updateRule", this.form);
+          console.log("O FORM", this.form);
+          await this.$store.dispatch("updateRule", {
+            ...this.form,
+            active: this.form.active ? 1 : 0,
+          });
         } else {
-          response = await this.$store.dispatch("newRule", {
+          await this.$store.dispatch("newRule", {
             name: this.form.name,
             active: this.form.active ? 1 : 0,
           });
         }
-        this.ruleData = response;
+        this.$snotify.success("Your rule have been saved.");
       } catch (error) {
         console.log(error);
-        //tratar
+        this.$snotify.error(
+          "Your rule have not been saved. Please, try again."
+        );
       }
       this.$emit("closeModal");
+      this.clearFields();
     },
     handleCancel(bvModalEvent) {
       bvModalEvent.preventDefault();

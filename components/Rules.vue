@@ -1,25 +1,31 @@
 <template>
-  <div>
+  <div class="col-12">
     <b-card
       :title="makeShortText(this.rule.name)"
-      img-src="https://picsum.photos/600/300/?image=25"
-      img-alt="Image"
-      img-top
+      :header="`id ${rule.id}`"
       tag="article"
-      class=""
-      :class="!rule.active ? 'bg-secondary' : ''"
       :id="rule.id"
     >
-      <b-button @click="openRule(rule.id)">Show rule</b-button>
+      <b-badge v-if="!rule.active" variant="danger">Inactive rule</b-badge>
+      <b-badge v-else variant="success">Active rule</b-badge>
+
+      <b-row class="d-flex justify-content-end">
+        <b-button class="m-2" variant="primary" @click="openRule(rule.id)"
+          >Show rule</b-button
+        >
+        <b-button
+          class="m-2"
+          @click="handleRemoveRule(rule.id)"
+          variant="danger"
+          >Remove</b-button
+        >
+      </b-row>
       <RuleModal
         :open="showModal"
         :data="ruleData"
         :loader="loading"
         @closeModal="handleCloseModal"
       />
-      <b-button @click="handleRemoveRule(rule.id)" variant="primary"
-        >Remove</b-button
-      >
     </b-card>
   </div>
 </template>
@@ -49,7 +55,6 @@ export default {
   },
   methods: {
     makeShortText(text) {
-      console.log("aqui o text", text);
       return `${text.substring(0, 20)}${text.length > 20 ? "..." : ""}`;
     },
     async openRule(id) {
@@ -66,12 +71,36 @@ export default {
       this.ruleData = null;
     },
     async handleRemoveRule(id) {
-      try {
-        const response = await this.$store.dispatch("deleteRule", id);
-      } catch (error) {
-        console.log(error);
-        //tratar
-      }
+      this.$snotify.confirm("Are you sure?", "Confirm", {
+        timeout: 5000,
+        showProgressBar: true,
+        closeOnClick: true,
+        buttons: [
+          {
+            text: "Yes",
+            action: async (toast) => {
+              this.$snotify.remove(toast.id);
+              try {
+                await this.$store.dispatch("deleteRule", id);
+                this.$snotify.success("Your rule has been removed.");
+              } catch (error) {
+                this.$snotify.error(
+                  "Your rule has not been removed. Please, try again"
+                );
+              }
+            },
+            timeout: 5000,
+            closeOnClick: true,
+            bold: false,
+          },
+          {
+            text: "Cancel",
+            action: (toast) => {
+              this.$snotify.remove(toast.id);
+            },
+          },
+        ],
+      });
     },
   },
 };
