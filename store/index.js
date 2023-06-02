@@ -63,24 +63,20 @@ export const actions = {
   async newRule({}, params) {
     console.log("chegou NEWRULE?", params);
     try {
-      const response = await this.$axios.$post("/", {
+      await this.$axios.$post("/", {
         house_rules: params,
       });
-      console.log("aqui response", response);
       this.dispatch("getRules");
     } catch (error) {
       console.log(error);
     }
-    return response;
   },
   async deleteRule({}, id) {
     try {
-      const response = await this.$axios.$delete(`${id}`);
-      console.log(response);
+      await this.$axios.$delete(`${id}`);
       this.dispatch("getRules");
     } catch (error) {
       console.log(error);
     }
-    return response;
   },
 };

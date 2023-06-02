@@ -71,36 +71,41 @@ export default {
       this.ruleData = null;
     },
     async handleRemoveRule(id) {
-      this.$snotify.confirm("Are you sure?", "Confirm", {
-        timeout: 5000,
-        showProgressBar: true,
-        closeOnClick: true,
-        buttons: [
-          {
-            text: "Yes",
-            action: async (toast) => {
-              this.$snotify.remove(toast.id);
-              try {
-                await this.$store.dispatch("deleteRule", id);
-                this.$snotify.success("Your rule has been removed.");
-              } catch (error) {
-                this.$snotify.error(
-                  "Your rule has not been removed. Please, try again"
-                );
-              }
+      this.$snotify.confirm(
+        "Are you sure you want to remove this rule?",
+        "Confirm",
+        {
+          timeout: 5000,
+          showProgressBar: true,
+          closeOnClick: true,
+          buttons: [
+            {
+              text: "Yes",
+              action: async (toast) => {
+                this.$snotify.remove(toast.id);
+                try {
+                  await this.$store.dispatch("deleteRule", id);
+                  this.$snotify.success("Your rule has been removed.");
+                } catch (error) {
+                  console.log(error);
+                  this.$snotify.error(
+                    "Your rule has not been removed. Please, try again"
+                  );
+                }
+              },
+              timeout: 5000,
+              closeOnClick: true,
+              bold: false,
             },
-            timeout: 5000,
-            closeOnClick: true,
-            bold: false,
-          },
-          {
-            text: "Cancel",
-            action: (toast) => {
-              this.$snotify.remove(toast.id);
+            {
+              text: "Cancel",
+              action: (toast) => {
+                this.$snotify.remove(toast.id);
+              },
             },
-          },
-        ],
-      });
+          ],
+        }
+      );
     },
   },
 };

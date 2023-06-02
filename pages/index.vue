@@ -20,12 +20,5 @@ export default {
       return this.$store.state.rules.entities;
     },
   },
-  async created() {
-    try {
-      this.$store.dispatch("getRules");
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  },
 };
 </script>
