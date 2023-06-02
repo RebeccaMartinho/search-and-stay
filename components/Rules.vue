@@ -10,17 +10,32 @@
       :class="!rule.active ? 'bg-secondary' : ''"
       :id="rule.id"
     >
-      <b-card-text> {{ rule }} </b-card-text>
-      <b-button href="#" variant="primary">Open</b-button>
-      <b-button href="#" variant="primary">Edit</b-button>
-      <b-button href="#" variant="primary">Remove</b-button>
+      <b-button @click="openRule(rule.id)">Show rule</b-button>
+      <RuleModal
+        :open="showModal"
+        :data="ruleData"
+        :loader="loading"
+        @closeModal="handleCloseModal"
+      />
+      <b-button @click="handleRemoveRule(rule.id)" variant="primary"
+        >Remove</b-button
+      >
     </b-card>
   </div>
 </template>
 
 <script>
+import RuleModal from "./RuleModal.vue";
 export default {
+  components: { RuleModal },
   name: "Rules",
+  data() {
+    return {
+      showModal: false,
+      ruleData: null,
+      loading: false,
+    };
+  },
   props: {
     rule: {
       type: Object,
@@ -36,6 +51,27 @@ export default {
     makeShortText(text) {
       console.log("aqui o text", text);
       return `${text.substring(0, 20)}${text.length > 20 ? "..." : ""}`;
+    },
+    async openRule(id) {
+      this.loading = true;
+      this.showModal = !this.showModal;
+      try {
+        const response = await this.$store.dispatch("showRule", id);
+        this.ruleData = response;
+        this.loading = false;
+      } catch (error) {}
+    },
+    handleCloseModal() {
+      this.showModal = false;
+      this.ruleData = null;
+    },
+    async handleRemoveRule(id) {
+      try {
+        const response = await this.$store.dispatch("deleteRule", id);
+      } catch (error) {
+        console.log(error);
+        //tratar
+      }
     },
   },
 };

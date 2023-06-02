@@ -1,5 +1,13 @@
 <template>
   <b-container>
+    <div class="text-right my-2">
+      <b-button @click="handleShowModal">New rule</b-button>
+    </div>
+    <RuleModal
+      :open="showModal"
+      :newRule="true"
+      @closeModal="handleShowModal"
+    />
     <b-form-checkbox switch class="mr-n2">
       <span class="sr-only">Switch for following text input</span>
     </b-form-checkbox>
@@ -29,6 +37,7 @@ export default {
     return {
       perPage: 3,
       currentPage: 1,
+      showModal: false,
     };
   },
 
@@ -44,7 +53,9 @@ export default {
     onPageClick(event, page) {
       this.$store.dispatch("getNextRules", page);
       event.preventDefault();
-      console.log("Clicked page", page, event, this.pagination);
+    },
+    handleShowModal() {
+      this.showModal = !this.showModal;
     },
   },
 };

@@ -27,9 +27,8 @@ export const mutations = {
 export const actions = {
   async getRules({ state, commit, dispatch }) {
     try {
-      // const { data } = await this.$axios.$get();
       const { data } = await this.$axios.$get();
-      console.log(data);
+      console.log(data, "GET RULES");
       commit("getRules", data.entities);
       commit("getPagination", data.pagination);
     } catch (er) {}
@@ -43,19 +42,47 @@ export const actions = {
       commit("getPagination", data.pagination);
     } catch (er) {}
   },
-
-  async showRule({ state, commit, dispatch }) {
+  async showRule({ state, commit, dispatch }, id) {
     try {
-      const { data } = await this.$axios.$get();
-      console.log(data);
-      commit("getRules", data);
+      const { data } = await this.$axios.$get(`${id}`);
+      console.log(data, "show rule");
+      return data;
+      // commit("getRules", data);
     } catch (er) {}
   },
-
-  async removeRule({}, id) {
-    await this.$axios.$delete(`/9${id}`);
+  async updateRule({}, params) {
+    console.log("chegou?", params);
+    try {
+      const { data } = await this.$axios.$put(`${params.id}`, {
+        house_rules: params,
+      });
+      this.dispatch("getRules");
+    } catch (error) {
+      console.log(error);
+    }
+    return data;
   },
-  async updateRule({}) {
-    await this.$axios.$put(`/9${id}`);
+  async newRule({}, params) {
+    console.log("chegou NEWRULE?", params);
+    try {
+      const response = await this.$axios.$post("/", {
+        house_rules: params,
+      });
+      console.log("aqui response", response);
+      this.dispatch("getRules");
+    } catch (error) {
+      console.log(error);
+    }
+    return data;
+  },
+  async deleteRule({}, id) {
+    try {
+      const response = await this.$axios.$delete(`${id}`);
+      console.log(response);
+      this.dispatch("getRules");
+    } catch (error) {
+      console.log(error);
+    }
+    return response;
   },
 };
