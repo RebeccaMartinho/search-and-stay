@@ -12,8 +12,10 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="#">Login</b-nav-item>
-          <b-nav-item href="#">Registrar</b-nav-item>
+          <!-- <b-nav-item href="#">Login</b-nav-item> -->
+          <b-nav-item @click="handleLogout" href="#">{{
+            isLoggedIn ? "Logout" : "Login"
+          }}</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -23,5 +25,17 @@
 <script>
 export default {
   name: "Navbar",
+
+  methods: {
+    handleLogout() {
+      this.$store.dispatch("auth/removeToken");
+      console.log("aqui");
+    },
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.auth.isLoggedIn;
+    },
+  },
 };
 </script>

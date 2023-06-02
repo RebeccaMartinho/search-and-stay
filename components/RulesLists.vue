@@ -43,14 +43,6 @@
           aria-controls="my-table"
           align="center"
         ></b-pagination>
-        <b-form-checkbox
-          v-model="onlyActives"
-          switch
-          class=""
-          @change="handleSwitch"
-        >
-          <span>{{ "Only actives" }}</span>
-        </b-form-checkbox>
       </div>
     </div>
   </b-container>
@@ -63,7 +55,6 @@ export default {
   data() {
     return {
       loading: true,
-      onlyActives: false,
       perPage: 3,
       currentPage: 1,
       showModal: false,
@@ -94,9 +85,6 @@ export default {
     },
     handleShowModal() {
       this.showModal = !this.showModal;
-    },
-    handleSwitch() {
-      console.log("valor", this.onlyActives);
     },
   },
 };
