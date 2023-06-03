@@ -74,7 +74,6 @@ export default {
   },
   watch: {
     data() {
-      console.log("val open e data", this.open, this.data, this.form);
       if (this.open && this.data && !this.newRule) {
         this.form = {
           ...this.data,
@@ -93,7 +92,6 @@ export default {
         const response = null;
 
         if (!this.newRule) {
-          console.log("O FORM", this.form);
           await this.$store.dispatch("updateRule", {
             ...this.form,
             active: this.form.active ? 1 : 0,
@@ -106,7 +104,6 @@ export default {
         }
         this.$snotify.success("Your rule have been saved.");
       } catch (error) {
-        console.log(error);
         this.$snotify.error(
           "Your rule have not been saved. Please, try again."
         );
