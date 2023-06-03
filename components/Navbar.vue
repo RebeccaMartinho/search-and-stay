@@ -1,14 +1,14 @@
 <template>
   <div>
-    <b-navbar toggleable="md" type="dark" variant="info">
+    <b-navbar toggleable="md" type="dark" variant="primary">
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-navbar-brand href="#">House rules</b-navbar-brand>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item href="#">Home</b-nav-item>
-          <b-nav-item href="#">Sobre</b-nav-item>
-          <b-nav-item href="#">Contato</b-nav-item>
+          <b-nav-item href="#">About</b-nav-item>
+          <!-- <b-nav-item href="#">Contato</b-nav-item> -->
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
@@ -29,7 +29,6 @@ export default {
   methods: {
     handleLogout() {
       this.$store.dispatch("auth/removeToken");
-      console.log("aqui");
     },
   },
   computed: {

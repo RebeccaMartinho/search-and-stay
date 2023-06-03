@@ -2,8 +2,12 @@
   <div class="col-12">
     <b-card
       :title="makeShortText(this.rule.name)"
-      :header="`id ${rule.id}`"
+      :img-src="`${ rule.id % 2 === 0 ? img : imgOdd }`"
+      img-alt="Image"
+      img-top
+      header-tag="h5"
       tag="article"
+      class="bg-info rounded-3"
       :id="rule.id"
     >
       <b-badge v-if="!rule.active" variant="danger">Inactive rule</b-badge>
@@ -14,7 +18,7 @@
           >Show rule</b-button
         >
         <b-button
-          class="m-2"
+          class="m-2 purple1 color-purple1 color-primary primary"
           @click="handleRemoveRule(rule.id)"
           variant="danger"
           >Remove</b-button
@@ -40,6 +44,8 @@ export default {
       showModal: false,
       ruleData: null,
       loading: false,
+      img: require('@/assets/w1.svg'),
+      imgOdd: require('@/assets/w2.svg')
     };
   },
   props: {
@@ -51,6 +57,10 @@ export default {
         active: 1,
         order: 0,
       }),
+    },
+    number: {
+      type: Number,
+      default: 0,
     },
   },
   methods: {
@@ -87,7 +97,6 @@ export default {
                   await this.$store.dispatch("deleteRule", id);
                   this.$snotify.success("Your rule has been removed.");
                 } catch (error) {
-                  console.log(error);
                   this.$snotify.error(
                     "Your rule has not been removed. Please, try again"
                   );

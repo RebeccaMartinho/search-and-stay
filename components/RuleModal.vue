@@ -3,6 +3,7 @@
     <b-modal
       v-model="open"
       ok-title="Save"
+      cancel-variant="light"
       :title="newRule ? 'New rule' : 'Edit Rule'"
       @ok="handleOk"
       @cancel="handleCancel"

@@ -22,19 +22,21 @@
         :newRule="true"
         @closeModal="handleShowModal"
       />
-
       <b-row>
         <b-col
           class="px-0 py-2"
-          v-for="item in rules"
+          v-for="(item, index) in rules"
           :key="item.id"
           cols="12"
           md="6"
         >
-          <Rules :rule="item" />
+          <Rules :rule="item" :number="index + 1" />
         </b-col>
       </b-row>
-      <div class="overflow-auto my-2">
+      <div
+        class="overflow-auto my-2"
+        v-if="hasRules && pagination.total_pages > 1"
+      >
         <b-pagination
           v-model="pagination.current_page"
           :total-rows="pagination.total"
@@ -43,6 +45,12 @@
           aria-controls="my-table"
           align="center"
         ></b-pagination>
+      </div>
+      <div
+        v-else-if="!hasRules"
+        class="d-flex align-items-center justify-content-center"
+      >
+        <span>There are no rules. How about creating a new one?</span>
       </div>
     </div>
   </b-container>
@@ -67,6 +75,9 @@ export default {
     },
     pagination() {
       return this.$store.state.pagination;
+    },
+    hasRules() {
+      return this.rules && this.rules.length > 0;
     },
   },
   async created() {

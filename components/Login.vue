@@ -7,7 +7,7 @@
       @submit="onSubmit"
       @reset="onReset"
       v-if="show"
-      class="w-50 mx-auto"
+      class="w-50 mx-auto bg-light p-5 rounded-lg"
     >
       <b-form-group
         id="input-group-1"
@@ -41,8 +41,10 @@
           Enter at least 8 letters
         </b-form-invalid-feedback>
       </b-form-group>
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <div class="d-flex justify-content-end">
+        <b-button type="submit" variant="primary" class="mr-2">Submit</b-button>
+        <b-button type="reset" variant="danger" class="ml-2">Reset</b-button>
+      </div>
     </b-form>
   </b-container>
 </template>
