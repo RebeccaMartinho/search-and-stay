@@ -1,6 +1,8 @@
 <template>
-  <b-container>
+  <b-container fluid="xl" class="col-10">
     <div v-if="loading" class="my-2">
+      <b-skeleton animation="wave" width="55%"></b-skeleton>
+      <b-skeleton animation="wave" width="70%"></b-skeleton>
       <b-skeleton class="ml-auto" type="button"></b-skeleton>
       <b-row v-for="n in 5" :key="n">
         <b-col class="d-none d-md-block my-2" cols="12" md="6">
@@ -11,9 +13,33 @@
         </b-col>
       </b-row>
     </div>
-    <div v-else>
-      <div class="text-right my-2">
-        <b-button variant="success" @click="handleShowModal"
+    <div v-else class="">
+      <div class="m-2 rounded p-2">
+        <h1>House Rules!</h1>
+        <small>Here you can create, update, read or delete rules</small>
+      </div>
+      <div class="d-flex justify-content-between my-2">
+        <b-button-group>
+          <b-button
+            @click="handleStatus('active')"
+            :variant="`${status === 'active' ? 'primary' : 'outline-primary'}`"
+            >Active</b-button
+          >
+          <b-button
+            @click="handleStatus('inactive')"
+            :variant="`${
+              status === 'inactive' ? 'primary' : 'outline-primary'
+            }`"
+            >Inactive</b-button
+          >
+          <b-button
+            @click="handleStatus('all')"
+            :variant="`${status === 'all' ? 'primary' : 'outline-primary'}`"
+            >All</b-button
+          >
+        </b-button-group>
+
+        <b-button variant="primary" @click="handleShowModal"
           >New rule +</b-button
         >
       </div>
@@ -22,13 +48,13 @@
         :newRule="true"
         @closeModal="handleShowModal"
       />
-      <b-row>
+      <b-row class="justify-content-center">
         <b-col
-          class="px-0 py-2"
+          class="px-0 py-2 flex-wrap justify-content-center mb-4"
           v-for="(item, index) in rules"
           :key="item.id"
           cols="12"
-          md="6"
+          md="3"
         >
           <Rules :rule="item" :number="index + 1" />
         </b-col>
@@ -66,6 +92,7 @@ export default {
       perPage: 3,
       currentPage: 1,
       showModal: false,
+      status: "all",
     };
   },
 
@@ -91,8 +118,21 @@ export default {
   },
   methods: {
     onPageClick(event, page) {
-      this.$store.dispatch("getNextRules", page);
       event.preventDefault();
+      this.currentPage = page;
+      let query =
+        this.status === "all"
+          ? `?page=${page}`
+          : `?active=${this.status === "active" ? 1 : 0}&page=${page}`;
+      this.$store.dispatch("getNextRules", query);
+    },
+    handleStatus(status) {
+      let query =
+        status === "all"
+          ? `?page=1`
+          : `?active=${status === "active" ? 1 : 0}&page=1`;
+      this.$store.dispatch("changeRuleStatus", query);
+      this.status = status;
     },
     handleShowModal() {
       this.showModal = !this.showModal;

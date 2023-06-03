@@ -2,27 +2,26 @@
   <div class="col-12">
     <b-card
       :title="makeShortText(this.rule.name)"
-      :img-src="`${ rule.id % 2 === 0 ? img : imgOdd }`"
+      :img-src="`${number % 2 === 0 ? img : imgOdd}`"
       img-alt="Image"
       img-top
       header-tag="h5"
       tag="article"
-      class="bg-info rounded-3"
+      class="bg-info rounded-3 card-img"
       :id="rule.id"
     >
       <b-badge v-if="!rule.active" variant="danger">Inactive rule</b-badge>
       <b-badge v-else variant="success">Active rule</b-badge>
-
       <b-row class="d-flex justify-content-end">
-        <b-button class="m-2" variant="primary" @click="openRule(rule.id)"
-          >Show rule</b-button
-        >
+        <b-button variant="primary" class="mr-3" @click="openRule(rule.id)">
+          <b-icon icon="eye"></b-icon
+        ></b-button>
         <b-button
-          class="m-2 purple1 color-purple1 color-primary primary"
+          class="mr-3"
           @click="handleRemoveRule(rule.id)"
           variant="danger"
-          >Remove</b-button
-        >
+          ><b-icon icon="trash"></b-icon
+        ></b-button>
       </b-row>
       <RuleModal
         :open="showModal"
@@ -44,8 +43,8 @@ export default {
       showModal: false,
       ruleData: null,
       loading: false,
-      img: require('@/assets/w1.svg'),
-      imgOdd: require('@/assets/w2.svg')
+      img: require("@/assets/w1.svg"),
+      imgOdd: require("@/assets/w2.svg"),
     };
   },
   props: {
@@ -120,4 +119,16 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.card-img,
+.card-img-top {
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+}
+.card {
+  border-radius: 50px;
+}
+.card-body {
+  padding: 30px;
+}
+</style>

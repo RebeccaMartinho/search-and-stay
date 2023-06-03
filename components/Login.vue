@@ -43,7 +43,7 @@
       </b-form-group>
       <div class="d-flex justify-content-end">
         <b-button type="submit" variant="primary" class="mr-2">Submit</b-button>
-        <b-button type="reset" variant="danger" class="ml-2">Reset</b-button>
+        <b-button type="reset" variant="info" class="ml-2">Reset</b-button>
       </div>
     </b-form>
   </b-container>

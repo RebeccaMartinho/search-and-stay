@@ -1,5 +1,6 @@
 export const state = () => ({
   rules: {},
+  status: "all",
   pagination: {
     total: 1,
     count: 1,
@@ -32,14 +33,22 @@ export const actions = {
       commit("getPagination", data.pagination);
     } catch (er) {}
   },
-  async getNextRules({ state, commit, dispatch }, page) {
+  async getNextRules({ state, commit, dispatch }, query) {
     try {
-      console.log(page);
-      const { data } = await this.$axios.$get(`?page=${page}`);
+      const { data } = await this.$axios.$get(query);
       console.log(data);
       commit("getRules", data.entities);
       commit("getPagination", data.pagination);
     } catch (er) {}
+  },
+  async changeRuleStatus({ state, commit, dispatch }, query) {
+    try {
+      const { data } = await this.$axios.$get(query);
+      commit("getRules", data.entities);
+      commit("getPagination", data.pagination);
+    } catch (err) {
+      console.log(err);
+    }
   },
   async showRule({ state, commit, dispatch }, id) {
     try {

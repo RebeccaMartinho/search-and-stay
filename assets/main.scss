@@ -1,2 +1,11 @@
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-vue/src/index.scss';
+
+* {
+  font-family: 'Nunito', sans-serif !important;
+}
+
+span.badge{
+  padding: 4px;
+  font-weight: 400;
+}
