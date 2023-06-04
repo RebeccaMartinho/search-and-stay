@@ -8,7 +8,7 @@ export const state = () => ({
     current_page: 1,
     total_pages: 1,
     links: {
-      next: "http://sys-dev.searchandstay.com/api/admin/house_rules?page=2",
+      next: `${process.env.BASE_URL}?page=2`,
       prev: null,
     },
   },
