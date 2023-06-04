@@ -43,8 +43,8 @@ export default {
       showModal: false,
       ruleData: null,
       loading: false,
-      img: require("@/assets/w1.svg"),
-      imgOdd: require("@/assets/w2.svg"),
+      img: require("@/assets/w1.webp"),
+      imgOdd: require("@/assets/w2.webp"),
     };
   },
   props: {

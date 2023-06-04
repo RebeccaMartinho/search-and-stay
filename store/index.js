@@ -31,21 +31,21 @@ export const actions = {
       commit("getPagination", data.pagination);
     } catch (er) {}
   },
-  async getNextRules({ state, commit, dispatch }, query) {
+  async getNextRules({ commit }, query) {
     try {
       const { data } = await this.$axios.$get(query);
       commit("getRules", data.entities);
       commit("getPagination", data.pagination);
     } catch (er) {}
   },
-  async changeRuleStatus({ state, commit, dispatch }, query) {
+  async changeRuleStatus({ commit }, query) {
     try {
       const { data } = await this.$axios.$get(query);
       commit("getRules", data.entities);
       commit("getPagination", data.pagination);
     } catch (err) {}
   },
-  async showRule({ state, commit, dispatch }, id) {
+  async showRule({}, id) {
     try {
       const { data } = await this.$axios.$get(`${id}`);
       return data;

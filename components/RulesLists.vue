@@ -1,16 +1,29 @@
 <template>
   <b-container fluid="xl" class="col-10">
     <div v-if="loading" class="my-2">
-      <b-skeleton animation="wave" width="55%"></b-skeleton>
-      <b-skeleton animation="wave" width="70%"></b-skeleton>
+      <div class="mt-5">
+        <b-skeleton animation="wave" width="35%"></b-skeleton>
+        <b-skeleton animation="wave" width="55%"></b-skeleton>
+      </div>
+      <div class="d-flex mt-5">
+        <b-skeleton type="button"></b-skeleton>
+        <b-skeleton type="button"></b-skeleton>
+        <b-skeleton type="button"></b-skeleton>
+      </div>
       <b-skeleton class="ml-auto" type="button"></b-skeleton>
-      <b-row v-for="n in 5" :key="n">
-        <b-col class="d-none d-md-block my-2" cols="12" md="6">
+      <b-row v-for="n in 3" :key="n" class="my-3">
+        <b-col
+          v-for="n in 4"
+          :key="n"
+          class="d-none d-md-block my-2"
+          cols="12"
+          md="3"
+        >
           <b-skeleton-img no-aspect height="200px"></b-skeleton-img>
         </b-col>
-        <b-col class="my-2" cols="12" md="6">
+        <!-- <b-col class="my-2" cols="12" md="4">
           <b-skeleton-img no-aspect height="200px"></b-skeleton-img>
-        </b-col>
+        </b-col> -->
       </b-row>
     </div>
     <div v-else class="">

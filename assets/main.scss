@@ -1,11 +1,15 @@
-@import '~bootstrap/scss/bootstrap.scss';
-@import '~bootstrap-vue/src/index.scss';
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~bootstrap-vue/src/index.scss";
 
 * {
-  font-family: 'Nunito', sans-serif !important;
+  font-family: "Nunito", sans-serif !important;
 }
 
-span.badge{
+body {
+  background-color: $light;
+}
+
+span.badge {
   padding: 4px;
   font-weight: 400;
 }

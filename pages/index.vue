@@ -5,7 +5,7 @@
       <Navbar />
       <RulesList />
     </div>
-    <div v-else>
+    <div v-else class="bg-primary">
       <Login />
     </div>
   </div>
