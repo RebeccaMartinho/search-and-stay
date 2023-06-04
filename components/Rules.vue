@@ -52,7 +52,7 @@ export default {
       type: Object,
       default: () => ({
         id: 1,
-        name: "Rule test",
+        name: "Rule",
         active: 1,
         order: 0,
       }),

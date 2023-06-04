@@ -41,7 +41,6 @@
 export default {
   data() {
     return {
-      teste: false,
       switchValue: false,
       form: {
         active: true,
