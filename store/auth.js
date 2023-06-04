@@ -9,10 +9,7 @@ export const mutations = {
 };
 export const actions = {
   async setToken({ state, commit }) {
-    await this.$axios.setToken(
-      "40fe071962846075452a4f6123ae71697463cad20f51e237e2035b41af0513d8",
-      "Bearer"
-    );
+    await this.$axios.setToken(process.env.TOKEN, "Bearer");
     commit("setToken", true);
   },
   removeToken({ commit }) {

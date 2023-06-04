@@ -1,10 +1,15 @@
-# STORE
+## Installation
 
-**This directory is not required, you can delete it if you don't want to use it.**
+Install the dependencies and devDependencies and start the server.
 
-This directory contains your Vuex Store files.
-Vuex Store option is implemented in the Nuxt.js framework.
+```sh
+npm i
+npm run dev
+```
 
-Creating a file in this directory automatically activates the option in the framework.
+For production environments...
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/guide/vuex-store).
+```sh
+TOKEN=the same beared token provided
+BASE_URL=the same URL provided
+```

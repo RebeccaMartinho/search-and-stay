@@ -1,7 +1,7 @@
+require("dotenv").config();
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
-
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "search-and-stay",
@@ -50,8 +50,11 @@ export default {
   ],
   publicRuntimeConfig: {
     axios: {
-      baseURL: "https://sys-dev.searchandstay.com/api/admin/house_rules",
+      baseURL: process.env.BASE_URL,
     },
+  },
+  env: {
+    TOKEN: process.env.TOKEN,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
